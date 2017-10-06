@@ -1,0 +1,39 @@
+server:
+  port: ${PORT:8181}
+  context-path: /${spring.application.name}
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri:  https://github.com/renga1080/vs-config-repo/
+          #uri:  https://github.com/renga1080/vs-config-repo.git
+          #username:
+          #password:
+          clone-on-start: true
+          timeout:  60
+          searchPaths:
+            - '{application}'
+            - '{application}/{profile}'
+
+
+# Eureka Server
+
+eureka:
+  client:
+    serviceUrl:
+      #defaultZone:  http://${eureka.host:${HOST:localhost}}:${eureka.port:8761}${eureka.context:/eureka-server}/eureka/
+      defaultZone:  http://localhost:8761/eureka-server/eureka/
+    registerWithEureka: true
+    fetchRegistry:  true
+    registryFetchIntervalSeconds: 5
+  instance:
+    leaseRenewalInterwalInSeconds:  5
+    status-page-url-path: ${server.context-path}/info
+    health-check-url-path: ${server.context-path}/health
+    home-page-url-path: ${server.context-path}
+    metadata-map:
+      configPath: ${server.context-path}
