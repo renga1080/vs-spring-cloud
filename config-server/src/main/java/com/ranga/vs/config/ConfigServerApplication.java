@@ -32,7 +32,7 @@ public class ConfigServerApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         System.setProperty("spring.profiles.active", "local");
-        //System.setProperty("PORT", "0");
+        System.setProperty("PORT", "0");
         SpringApplication.run(ConfigServerApplication.class, args);
     }
 }
